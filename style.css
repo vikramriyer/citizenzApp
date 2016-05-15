@@ -171,6 +171,11 @@ body{
  .wdth70pc{
     width:70%!important;
   }
+  .wd30pc{
+    width:30%!important;
+    display: inline-block;
+    padding:5px;
+  }
 @media only screen and (max-width:800px){
   .usertabs>li>a{
     padding-left: 10px!important;

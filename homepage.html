@@ -50,22 +50,22 @@
             </div>
             <div class="row">
               <div class="col-sm-12 no-padding">
-                <a href="http://www.passportindia.gov.in">PSK Mela at Hyderabad on 24th March</a>
+                <li><a href="http://www.passportindia.gov.in">Smart City Bhopal</a></li>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12 no-padding">
-                <a href="http://www.passportindia.gov.in">PSK Mela at Hyderabad on 24th March</a>
+                <li><a href="http://www.passportindia.gov.in">Youth power taking India ahead</a></li>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12 no-padding">
-                <a href="http://www.passportindia.gov.in">PSK Mela at Hyderabad on 24th March</a>
+                <li><a href="http://www.passportindia.gov.in">Making entrepreneurship aspirational through entrepreneurship education</a></li>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12 no-padding">
-                <a href="http://www.passportindia.gov.in">PSK Mela at Hyderabad on 24th March</a>
+                <li><a href="http://www.passportindia.gov.in">Skill Development and 21st century India</a></li>
               </div>
             </div>
           </div>
@@ -194,16 +194,20 @@
                                 <div ng-repeat="option in post.options">
                                   <div class="row"  ng-if="!post.isResultVisible">
                                     <div class="col-sm-12">
+                                      <label>
                                       <input type="radio" ng-if="!post.isMultiSelect" name="post_option{{post.id}}" ng-model="post.selected" ng-value="option.title" ng-disabled="!post.canSubmit"/>
                                       <input type="checkbox" ng-if="post.isMultiSelect" name="post_option{{post.id}}" ng-model="option.value" ng-value="option.title" ng-disabled="!post.canSubmit"/>
                                       <span>{{option.title}} </span>
+                                      <label>
                                     </div>
                                   </div>
                                   <div class="row"  ng-if="post.isResultVisible">
                                     <div class="col-sm-6 col-xs-6 col-md-6">
+                                      <label>
                                       <input type="radio" ng-if="!post.isMultiSelect" name="post_option{{post.id}}" ng-model="post.selected" ng-value="option.title" ng-disabled="!post.canSubmit"/>
                                       <input type="checkbox" ng-if="post.isMultiSelect" name="post_option{{post.id}}" ng-model="option.value" ng-disabled="!post.canSubmit"/>
                                       {{option.title}} 
+                                      <label>
                                     </div>
                                     <div class="col-sm-6 col-xs-6 col-md-6">
                                       <div class="progress">
@@ -222,7 +226,25 @@
                             </div>
                           </div>
                           <div class="panel panel-primary top-buffer grievancePost" ng-if="post.type=='grievance'">
-                            <div class="panel-heading">Grievances: {{post.title}}</div>
+                            <div class="panel-heading">
+                            <div class="row">
+                              <div class="col-sm-12 col-xs-12">
+                                <div class="row">
+                              <div class="col-sm-12 col-xs-12">
+                                Grievances: {{post.title}}
+                              </div>
+                                  </div>
+                                  <div class="row">
+                              <div class="col-sm-12 col-xs-12">
+                                  <div ng-class="{'wd30pc alert alert-warning' : post.status=='Work In Progress','wd30pc alert alert-danger' : post.status=='Requested','wd30pc alert alert-success' : post.status=='Completed'}">
+                                    <strong>{{post.status}}</strong> 
+                                  </div>
+                                  </div>
+                                    <span class="pull-right">- Original Post By {{post.from}} On {{post.on}}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <div class="panel-body">
                               <input type="text" class="wdth70pc" ng-model="UpVoteGrivTxt[post.id]"/>
                               <button type="button" class="btn btn-primary btn-sm pull-right" ng-click="UpVoteGrievances(post.id)">UpVote</button>
@@ -241,7 +263,7 @@
                             </div>
                           </div>
                           <div class="panel panel-primary top-buffer updatePost" ng-if="post.type=='message'">
-                            <div class="panel-heading">Message</div>
+                            <div class="panel-heading">Message By {{post.from}} On {{post.on}}</div>
                             <div class="panel-body">
                              {{post.title}}
                            </div>                      
@@ -262,12 +284,9 @@
                     <div class="row">
                       <div class="col-sm-12">
                         <ul class="no-padding">
-                          <li><a> community awarness programme should happen monthly </a></li>
-                          <li><a> community awarness programme should happen monthly </a></li>
-                          <li><a> community awarness programme should happen monthly </a></li>
-                          <li><a> community awarness programme should happen monthly </a></li>
-                          <li><a> community awarness programme should happen monthly </a></li>
-                          <li><a> community awarness programme should happen monthly </a></li>
+                          <li><a> What type of regulating structure is required to encourage development of requisite skill traits in mining sector? </a></li>
+                          <li><a> What type of incentive structure encourages development of requisite skill traits in mining sector? </a></li>
+                          <li><a> How Sustainable Management of Natural Resources may achieve Food & Rural livelihood security in India? </a></li>
                           </ul>
                         </div>
                       </div>
