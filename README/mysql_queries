@@ -1,0 +1,66 @@
+** mysql
+1. Schema
+
+	Database name: citizenz
+	Table name: citizens
+	Fields: (c_id[this is aadhar number for now, primary], c_name, c_email, c_age, c_location, c_password)
+
+	mysql> desc citizens;
+	+------------+-------------+------+-----+---------+-------+
+	| Field      | Type        | Null | Key | Default | Extra |
+	+------------+-------------+------+-----+---------+-------+
+	| c_id       | int(11)     | NO   | PRI | NULL    |       |
+	| c_name     | varchar(25) | YES  |     | NULL    |       |
+	| c_email    | varchar(45) | YES  |     | NULL    |       |
+	| c_location | varchar(25) | NO   |     | NULL    |       |
+	| c_password | varchar(25) | NO   |     | NULL    |       |
+	+------------+-------------+------+-----+---------+-------+
+
+2. Queries for creation of Schema
+
+	create table citizens (c_id VARCHAR(25) NOT NULL, c_name VARCHAR(25) NULL, c_email VARCHAR(45) NULL, c_location VARCHAR(25) NOT NULL, c_password VARCHAR(25) NOT NULL, PRIMARY KEY (c_id));
+
+3. Let's have a stored procedure to create user, named: sp_create_user
+
+	DELIMITER $$
+	CREATE DEFINER='root'@'localhost' PROCEDURE sp_create_user(
+	    IN sp_id VARCHAR(25),
+	    IN sp_name VARCHAR(25),
+	    IN sp_email VARCHAR(45),
+	    IN sp_location VARCHAR(25),
+	    IN sp_password VARCHAR(25)
+	)
+	BEGIN
+	    if ( select exists (select 1 from citizens where c_id = sp_id) ) THEN
+	        select 'Username Exists !!';
+	    ELSE
+	        insert into citizens
+	        (
+	            c_id,
+	            c_name,
+	            c_email,
+	            c_location,
+	            c_password
+	        )
+	        values
+	        (
+	            sp_id,
+	            sp_name,
+	            sp_email,
+	            sp_location,
+	            sp_password
+	        );
+	    END IF;
+	END$$
+	DELIMITER ;
+
+
+4. Checking if data is posted into DB
+mysql> select * from citizens;
++--------+--------+-------------------------+------------+---------------------------+
+| c_id   | c_name | c_email                 | c_location | c_password                |
++--------+--------+-------------------------+------------+---------------------------+
+| abc123 | vikram | vikram.iyer09@gmail.com | pune       | pbkdf2:sha1:1000$5Zi7fn9t |
+| f      | a      | d                       | 2          | pbkdf2:sha1:1000$Owg6k3qF |
++--------+--------+-------------------------+------------+---------------------------+
+2 rows in set (0.00 sec)
