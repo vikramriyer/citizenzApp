@@ -1,0 +1,32 @@
+** Steps required to run the code on windows
+1. install pip on windows, setting in PATH and all, check the answer below given
+http://stackoverflow.com/questions/4750806/how-do-i-install-pip-on-windows
+to make it simple, pip is just like a package installer which will install python specific packages/apis, like we have mvn that install maven apis from maven central and so on
+
+2. Once this is ready, you need to install Flask, werkzeug, requests, json -> some come pre installed but check eacch of them on windows cmd
+pip install Flask
+pip install <package-name>
+
+Now, clone the repo from bitbucket
+git clone https://markiv09@bitbucket.org/markiv09/citizenz_round_2.git
+
+cd into the directory and run below command,
+python app.py
+
+visit the URL: http://localhost:9001 #change it as per convenience in the file
+
+Below are the logs that I got when I tried to insert data through UI, this is on command line as the process is running from previous command 'python app.py':
+
+	127.0.0.1 - - [25/May/2016 01:41:25] "GET /showSignUp HTTP/1.1" 200 -
+	app.py:43: Warning: Data truncated for column 'sp_password' at row 1
+	  cursor.callproc('sp_create_user',(_id,_name,_email,_location,_hashed_password))
+	127.0.0.1 - - [25/May/2016 01:41:43] "POST /signUp HTTP/1.1" 200 -
+	/data/anaconda2/lib/python2.7/site-packages/MySQLdb/cursors.py:100: Warning: Data truncated for column 'sp_password' at row 1
+	  while self.nextset(): pass
+	127.0.0.1 - - [25/May/2016 01:41:46] "POST /signUp HTTP/1.1" 200 -
+
+I have shown data in DB in the mysql_queries README file
+
+The main point to be noticed is, when the UI is getting hit, the API call is inserting into the DB, by writing queries for other CRUD, it will be easy to accomplish other tasks
+
+I am really sorry that I could not attach the db file, I am feeling sleepy, go through the manual steps given in mysql_queries README file to create DB, add table, a stored procedure to avoid duplicate tuples :) , then you can do stuff from UI

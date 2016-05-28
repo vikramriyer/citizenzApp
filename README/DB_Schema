@@ -1,0 +1,73 @@
+options_post
++-----------+------------+------+-----+---------+-------+
+| Field     | Type       | Null | Key | Default | Extra |
++-----------+------------+------+-----+---------+-------+
+| option_id | bigint(20) | YES  | MUL | NULL    |       |
+| post_id   | int(11)    | YES  | MUL | NULL    |       |
++-----------+------------+------+-----+---------+-------+
+
+options
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| option_id    | bigint(20)  | NO   | PRI | NULL    |       |
+| title        | varchar(45) | YES  |     | NULL    |       |
+| votes        | bigint(20)  | YES  |     | NULL    |       |
+| percent_vote | varchar(25) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
+interactions_post
++----------------+------------+------+-----+---------+-------+
+| Field          | Type       | Null | Key | Default | Extra |
++----------------+------------+------+-----+---------+-------+
+| interaction_id | bigint(20) | YES  | MUL | NULL    |       |
+| post_id        | int(11)    | YES  | MUL | NULL    |       |
++----------------+------------+------+-----+---------+-------+
+
+interactions
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| interaction_id | bigint(20)  | NO   | PRI | NULL    |       |
+| title          | varchar(45) | YES  |     | NULL    |       |
+| user_id        | bigint(20)  | YES  | MUL | NULL    |       |
+| date_created   | varchar(25) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+
+post
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| post_id           | bigint(20)  | NO   |     | NULL    |       |
+| type_id           | int(11)     | NO   | MUL | NULL    |       |
+| user_id           | bigint(20)  | NO   | MUL | NULL    |       |
+| title             | varchar(45) | YES  |     | NULL    |       |
+| can_submit        | tinyint(1)  | YES  |     | NULL    |       |
+| is_result_visible | tinyint(1)  | YES  |     | NULL    |       |
+| total_submits     | varchar(25) | YES  |     | NULL    |       |
+| is_multi_select   | tinyint(1)  | YES  |     | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+
+post_type
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| post_id | int(11)     | NO   | PRI | NULL    |       |
+| type    | varchar(20) | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+user
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| user_id   | bigint(20)  | NO   | PRI | NULL    | auto_increment |
+| aadhar    | varchar(25) | YES  |     | NULL    |                |
+| name      | varchar(25) | YES  |     | NULL    |                |
+| address   | varchar(45) | YES  |     | NULL    |                |
+| mobile    | varchar(10) | YES  |     | NULL    |                |
+| email     | varchar(25) | YES  |     | NULL    |                |
+| pan       | varchar(25) | YES  |     | NULL    |                |
+| location  | varchar(25) | YES  |     | NULL    |                |
+| image_url | varchar(45) | YES  |     | NULL    |                |
+| password  | varchar(20) | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
