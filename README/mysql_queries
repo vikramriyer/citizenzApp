@@ -25,30 +25,51 @@
 	DELIMITER $$
 	CREATE DEFINER='root'@'localhost' PROCEDURE sp_create_user(
 	    IN sp_id VARCHAR(25),
+	    in sp_uname VARCHAR(25),
 	    IN sp_name VARCHAR(25),
+	    IN sp_aadhar VARCHAR(25),
+	    IN sp_address VARCHAR(45),
+	    IN sp_mobile VARCHAR(10),
+	    IN sp_pan VARCHAR(25),
+	    IN sp_image_url VARCHAR(45),
 	    IN sp_email VARCHAR(45),
 	    IN sp_location VARCHAR(25),
+	    IN sp_points VARCHAR(10),
 	    IN sp_password VARCHAR(25)
 	)
 	BEGIN
-	    if ( select exists (select 1 from citizens where c_id = sp_id) ) THEN
+	    if ( select exists (select 1 from user where c_id = sp_id) ) THEN
 	        select 'Username Exists !!';
 	    ELSE
 	        insert into citizens
 	        (
-	            c_id,
-	            c_name,
-	            c_email,
-	            c_location,
-	            c_password
+	        	user_id,
+	        	name,
+	        	uname,
+	        	address,
+	        	mobile,
+	        	email,
+	            pan,
+	            aadhar,
+	            location,
+	        	image_url,
+	        	password,
+	            points
 	        )
 	        values
 	        (
 	            sp_id,
 	            sp_name,
+	            sp_uname,
+	            sp_address,
+	            sp_mobile,
 	            sp_email,
+	            sp_pan,
+	            sp_aadhar,
 	            sp_location,
-	            sp_password
+	            sp_image_url,
+	            sp_password,
+	            sp_points
 	        );
 	    END IF;
 	END$$
@@ -64,3 +85,85 @@ mysql> select * from citizens;
 | f      | a      | d                       | 2          | pbkdf2:sha1:1000$Owg6k3qF |
 +--------+--------+-------------------------+------------+---------------------------+
 2 rows in set (0.00 sec)
+
+5. stored function for auth
+
+DELIMITER ||
+CREATE FUNCTION auth (username VARCHAR(25), uPassword VARCHAR(20))
+    RETURNS BOOL
+    NOT DETERMINISTIC
+    READS SQL DATA
+BEGIN
+    RETURN EXISTS (SELECT username FROM `user` WHERE uname = username AND password = uPassword);
+END;
+||
+DELIMITER ;
+SELECT CheckPassword('a','b');
+
+5. stored procedure auth
+DELIMITER $$
+	CREATE DEFINER='root'@'localhost' PROCEDURE uauth(
+	    IN sp_uname VARCHAR(25),
+	    IN sp_password TEXT
+	)
+	BEGIN
+		RETURN EXISTS (SELECT uname FROM `user` WHERE uname = sp_uname AND password = sp_password);    
+	END$$
+	DELIMITER ;
+
+CREATE STORED PROCEDURE user_auth
+    sp_uname VARCHAR(25),
+    sp_password TEXT
+AS
+BEGIN
+
+SET NOCOUNT ON
+
+IF EXISTS(SELECT * FROM user WHERE uname = sp_uname AND password = sp_password)
+    SELECT 'true' AS UserExists
+ELSE
+    SELECT 'false' AS UserExists
+
+END
+
+Stored Procedure for getting user info:
+	delimiter //
+	create DEFINER='root'@'localhost' procedure sp_check(sp_uname varchar(25)) {
+	    in sp_uname VARCHAR(25)
+	   }
+
+	  	BEGIN
+		   select * from user where uname = sp_uname;
+		END //
+	delimiter ;
+
+Stored Procedure for 
+
+delimiter //
+create DEFINER='root'@'localhost' procedure sp_a (sp_uname varchar(25), out o_id VARCHAR(25),
+	out o_uname VARCHAR(25),
+	out o_name VARCHAR(25),
+	out o_aadhar VARCHAR(25),
+    out o_address VARCHAR(45),
+    out o_mobile VARCHAR(10),
+    out o_pan VARCHAR(25),
+    out o_image_url VARCHAR(45),
+    out o_email VARCHAR(45),
+    out o_location VARCHAR(25),
+    out o_points VARCHAR(10))
+BEGIN
+	select 
+	id into o_id,
+	uname into o_uname,
+	name into o_name,
+	aadhar into o_aadhar
+	address into o_address
+	mobile into o_mobile
+	pan into o_pan
+	image_url into o_image_url
+	email into o_email
+	location into o_location
+	points into o_points
+	from user where uname = sp_uname;
+END //
+demiliter ;
