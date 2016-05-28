@@ -1,0 +1,117 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
+<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body ng-app="mainApp" ng-controller="MainController as vm">
+
+<div class="container">
+	<form class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input ng-model="vm.authUserData.username" type="adharId" id="inputEmail" class="form-control" placeholder="Aadhar / PAN Number" autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input ng-model="vm.authUserData.password" type="password" id="inputPassword" class="form-control" placeholder="Password">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" id="signin" ng-click="vm.signIn()">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" id="signUp" ng-click="vm.signUpClick()">Create New Account</button>
+      </form>
+
+	<div class="row">
+		<div class="col-sm-12">
+		
+		</div>
+	</div>
+</div>
+<div id='showUserDetails' class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">User Details</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="profileContainer">
+                        <div class="row margin-top0">
+                          <div class="col-sm-8 col-sm-offset-3">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                Name:
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" ng-model="vm.userDetails.name">
+                              </div>
+                              </div>
+                              <div class="row">
+                              <div class="col-sm-6">
+                                  User Image:
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="file" fileread="vm.userDetails.img" class="wd80pc"/>
+                                <img data-ng-src="{{vm.userDetails.img}}" id="previewUserImg"/>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-6">
+                                  Address:
+                              </div>
+                              <div class="col-sm-6">
+                                <textarea ng-model="vm.userDetails.address"></textarea>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-6">
+                                  Location:
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" id="userLocationName" ng-model="vm.userDetails.location">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-6">
+                                  Aadhar Card No.
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" ng-model="vm.userDetails.aadhar">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-6">
+                                  PAN Card No.
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" ng-model="vm.userDetails.pan">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-6 col-xs-6 col-md-6">
+                                  <button class="btn btn-primary" ng-click="vm.saveUserData()">Save</button>
+                              </div>
+                              <div class="col-sm-6 col-xs-6 col-md-6">
+                                  <button class="btn btn-default">Cancel</button>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+
+	<script type="text/javascript" src="jquery-1.12.1.min.js"></script>
+  <script type="text/javascript" src="AutoSuggest.js"></script>
+  <script type="text/javascript" src="bootstrap.min.js"></script>
+  <script type="text/javascript" src="angular.min.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="dataStore.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+  <script type="text/javascript" src="jquery-ui.js"></script>
+</body>
+</html>

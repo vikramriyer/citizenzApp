@@ -1,0 +1,219 @@
+body {
+  background-color: #eee;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.navbar-nav>li>a.profile-image {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/*
+ * Navbar
+ */
+.navbar-top {
+  margin-bottom: 0px;
+  background-color: #428bca;
+  border-color: #3174b0;
+}
+.navbar-top .navbar-brand {
+  color: #ffffff;
+}
+.navbar-top .navbar-brand:hover, .navbar-top .navbar-brand:focus {
+  color: #ecf0f1;
+}
+.navbar-top .navbar-text {
+  color: #ffffff;
+}
+.navbar-top .navbar-nav > li > a {
+  color: #ffffff;
+}
+.navbar-top .navbar-nav > li > a:hover, .navbar-top .navbar-nav > li > a:focus {
+  color: #ecf0f1;
+  background-color: #3174b0;
+}
+.navbar-top .navbar-nav > .active > a, .navbar-top .navbar-nav > .active > a:hover, .navbar-top .navbar-nav > .active > a:focus {
+  color: #ecf0f1;
+  background-color: #3174b0;
+}
+.navbar-top .navbar-nav > .open > a, .navbar-top .navbar-nav > .open > a:hover, .navbar-top .navbar-nav > .open > a:focus {
+  color: #ecf0f1;
+  background-color: #3174b0;
+}
+.navbar-top .navbar-toggle {
+  border-color: #3174b0;
+}
+.navbar-top .navbar-toggle:hover, .navbar-top .navbar-toggle:focus {
+  background-color: #3174b0;
+}
+.navbar-top .navbar-toggle .icon-bar {
+  background-color: #ffffff;
+}
+.navbar-top .navbar-collapse,
+.navbar-top .navbar-form {
+  border-color: #ffffff;
+}
+.navbar-top .navbar-link {
+  color: #ffffff;
+}
+.navbar-top .navbar-link:hover {
+  color: #ecf0f1;
+}
+
+@media (max-width: 767px) {
+  .navbar-top .navbar-nav .open .dropdown-menu > li > a {
+    color: #ffffff;
+  }
+  .navbar-top .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-top .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #ecf0f1;
+  }
+  .navbar-top .navbar-nav .open .dropdown-menu > .active > a, .navbar-top .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-top .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #ecf0f1;
+    background-color: #3174b0;
+  }
+}
+.bg-white{
+  background: white;
+}
+.mrg-top15{
+  margin-top: 15px;
+}
+.top-buffer { margin-top:20px; }
+.pad-10{
+  padding: 10px;
+}
+.btn-space{
+  margin-right:5px;
+}
+.wdth95pc{
+  width: 95%;
+}
+.ht50{
+  height:50px;
+}
+.wdth85pc{
+  width:85%;
+}
+.colBlk{
+  color:black;
+}
+ html, body {
+        margin: 0;
+        padding: 0;
+      }
+.progress-bar{
+  color:black!important;
+}
+.filterPost>li{
+  display:inline-block;
+}
+.filterPost>li[active='true']{
+  background-color: #337AB7;
+  color:white;
+}
+.text-align-center{
+  text-align: center;
+}
+body{
+  padding-top:70px;
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+.jewelCount{
+  background-color: red;
+  color:white;
+  padding:2px;
+}
+.font-size25{
+  font-size:25px;
+}
+.profileContainer .row{
+  margin-top: 20px!important;
+}
+.no-padding{
+  padding-right: 0px!important;
+  padding-left: 0px!important;
+}
+ .wdth70pc{
+    width:70%!important;
+  }
+  .wd30pc{
+    width:30%!important;
+    display: inline-block;
+    padding:5px;
+  }
+@media only screen and (max-width:800px){
+  .usertabs>li>a{
+    padding-left: 10px!important;
+    padding-right: 10px!important;
+  }
+  #pollAddPoll,#pollIncOption,#submitGrivBtn,#cancelGrivBtn,#submitMsgBtn,#cancelMsgBtn{
+    float:none!important;
+  }
+  .filterPost{
+    padding-right:40px;
+  }
+  .wdth95pc{
+    width: 85%!important;
+  }
+  .profileContainer .margin-top0{
+    margin-top: 0px!important;
+  }
+}
+#previewUserImg{
+  height:50px;
+  width:50px;
+}
+.wd80pc{
+  width:80%;
+}
+.img-circle{
+  width:30px;
+  height:30px;
+}
+.DimImg{
+  width:25px;
+  height:25px;
+}
+.grivCamImg{
+  height:50px;
+  width:50px;
+}
+.captureCam{
+  float: left;
+  padding:10px;
+}

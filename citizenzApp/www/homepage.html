@@ -1,0 +1,497 @@
+  <html ng-app="mainApp">
+  <head>
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body ng-controller="MainController as vm">
+    <div class="navbar navbar-static-top masthead navbar-top navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-nav">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="homepage.html">Citizenz</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse" id="top-nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown"><a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown"><span class="glyphicon glyphicon-flash font-size25"></span> Notifications <sup class="jewelCount">{{(vm.posts | filter:{isNotification:true} ).length}}</sup></a>
+              <ul class="dropdown-menu">
+                <li ng-repeat="update in vm.posts | filter:{isNotification:true}">
+                  <a ng-click="vm.showNotificationModal(update)"> {{update.title}}</a>
+                </li>
+              </ul>
+            </li>
+            <li><a class="cursor-pointer" ng-click="selectCityModal()"><i class="fa fa-suitcase"></i> Current Location: {{vm.userDetails.location}}</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown">
+                <img data-ng-src="{{vm.userDetails.img}}" class="img-circle"> {{vm.userDetails.name}} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" data-toggle="modal" data-target="#showUserDetails"><i class="fa fa-cog"></i> My Profile</a></li>
+                  <li class="divider"></li>
+                  <li><a href="index.html"><i class="fa fa-sign-out"></i> Sign-out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>  
+
+      <div class="container">
+       <div class="row">
+        <div class="col-md-2 bg-white hidden-xs hidden-sm">
+          <div class="col-sm-12">
+            <div class="row">
+              <h4>Latest Updates & News</h4>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 no-padding">
+                <li><a href="http://www.passportindia.gov.in">Smart City Bhopal</a></li>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 no-padding">
+                <li><a href="http://www.passportindia.gov.in">Youth power taking India ahead</a></li>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 no-padding">
+                <li><a href="http://www.passportindia.gov.in">Making entrepreneurship aspirational through entrepreneurship education</a></li>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 no-padding">
+                <li><a href="http://www.passportindia.gov.in">Skill Development and 21st century India</a></li>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="col-sm-12">
+            <div class="row bg-white pad-10">
+              <div class="col-sm-12">
+               <ul class="nav nav-tabs hidden-md hidden-lg usertabs">
+                <li role="presentation" class="active"><a href="#polls" data-toggle="tab">Polls</a></li>
+                <li role="presentation"><a href="#grievances" data-toggle="tab">Grievances</a></li>
+                <li role="presentation"><a href="#updates" data-toggle="tab">Messages</a></li>
+              </ul>
+              <ul class="nav nav-tabs hidden-xs hidden-sm usertabs">
+                <li role="presentation" class="active"><a href="#polls" data-toggle="tab">Add Polls</a></li>
+                <li role="presentation"><a href="#grievances" data-toggle="tab">Add Grievances</a></li>
+                <li role="presentation"><a href="#updates" data-toggle="tab">Messages & Updates</a></li>
+              </ul>
+              <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade active in" id="polls">
+                  <div class="panel panel-primary top-buffer">
+                    <div class="panel-heading">
+                      <span class="glyphicon glyphicon-stats"></span>
+                      <input class="wdth95pc colBlk hashTagSuggestions" type="text"text id="pollTitle" ng-model="pollTitle" placeholder="Enter Poll Question here..."/></div>
+                      <div class="panel-body">
+                        <ul class="list-group">
+                          <li class="list-group-item" ng-repeat="t in noOfOption">
+                            <div class="radio">
+                              <label class="wdth95pc">
+                                <input type="radio" name="optionsRadios" ng-if="!isMultiSelect">
+                                <input type="checkbox" name="optionsRadios" ng-if="isMultiSelect">
+                                <input type="text" class="optionTxt wdth95pc" placeholder="Option Text">
+                              </label>
+                            </div>
+                          </li>                                               
+                        </ul>
+                      </div>
+                      <div class="panel-footer">
+                        <button type="button" id="pollAddPoll" class="btn btn-primary btn-sm pull-right" ng-click="submitNewPoll()">
+                          Add Poll</button>
+                          <button type="button" id="pollIncOption" class="btn btn-default btn-sm pull-right btn-space" ng-click="incrementOption()">
+                            Add More Option</button>
+                            <label><input type="checkbox" id='addSeeResultToAll' ng-model="addSeeResultToAllChkbox">Show Result To All</label>
+                            <label><input type="checkbox" id='singleOptionSelect' ng-model="isMultiSelect">Allow Multi Select</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="grievances">
+                       <div class="panel panel-primary top-buffer">              
+                        <div class="panel-body">
+                          <textarea class="wdth95pc hashTagSuggestions" id="grievancesTxt" ng-model="grievancesTxt"></textarea>
+                        </div>
+                        <div class="panel-footer">
+                          <div class="row">
+                          <div class="col-sm-12 col-xs-6">
+                          <label>
+                          Status <select ng-model="selectedGrievancesStatus">
+                          <option>Requested</option>
+                          <option>In Queue</option>
+                          <option>Work in progress</option>
+                          <option>Completed</option>
+                          <option>Halt</option>
+                        </select></label>
+                      </div>
+                      <div class="col-sm-12 col-xs-6">
+                        <a href="#" class="dropdown-toggle captureCam" data-toggle="dropdown" role="button">
+                          <img src="cam.jpg" class="DimImg"/>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li ng-click="vm.picSource='CAMERA';vm.getPic()">Camera</li>
+                          <li ng-click="vm.picSource='PHOTOLIBRARY';vm.getPic()">Galary</li>
+                        </ul>
+                        <div id="capturedImg"></div>
+                      </div>
+                      <div class="col-sm-12 col-xs-12">
+                        <button type="button" class="btn btn-primary btn-sm pull-right" id="submitGrivBtn" ng-click="submitNewGrievances()">
+                          Submit Post</button>
+                          <button type="button" id="cancelGrivBtn" class="btn btn-default btn-sm pull-right btn-space">
+                            Cancel</button>
+                            </div>
+                            </div>                                
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="updates">
+                        <div class="panel panel-primary top-buffer">              
+                         <div class="panel-body">
+                           <textarea class="wdth95pc hashTagSuggestions" id="grievancesTxt" ng-model="messageTxt"></textarea>
+                         </div>
+                         <div class="panel-footer ht50">                                 
+                           <button type="button" id="submitMsgBtn" class="btn btn-primary btn-sm pull-right" ng-click="submitNewMessage()">
+                             Submit Post</button>
+                             <button type="button" id="cancelMsgBtn" class="btn btn-default btn-sm pull-right btn-space">
+                               Cancel</button>                                
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                       <div class="text-align-center">
+                        <ul ng-click="changePostOrder()" class="filterPost hidden-md hidden-lg">
+                          <li id='showLipoll' class="cursor-pointer" ng-click='showPollsCat=!showPollsCat' ng-attr-active='{{showPollsCat}}'>
+                            <input type="checkbox" ng-checked="showPollsCat">
+                            <span class="glyphicon glyphicon-stats"></span>
+                            </li>
+                            <li id='showLigrievance' class="cursor-pointer" ng-click='showGrievancesCat=!showGrievancesCat' ng-attr-active='{{showGrievancesCat}}'>
+                              <input type="checkbox" ng-checked="showGrievancesCat">
+                              <span class="glyphicon glyphicon-tasks"></span>
+                              </li>
+                              <li id='showLiupdate' class="cursor-pointer" ng-click='showUpdatesCat=!showUpdatesCat' ng-attr-active='{{showUpdatesCat}}'>
+                                <input type="checkbox" ng-checked="showUpdatesCat">
+                                <span class="glyphicon glyphicon-align-left"></span>
+                                </li>
+                              </ul>
+                              <ul ng-click="changePostOrder()" class="filterPost hidden-xs hidden-sm">
+                                <li id='showLipoll' class="cursor-pointer" ng-click='showPollsCat=!showPollsCat' ng-attr-active='{{showPollsCat}}'>
+                                  <input type="checkbox" ng-checked="showPollsCat">
+                                  <span class="glyphicon glyphicon-stats"></span>
+                                  Polls</li>
+                                  <li id='showLigrievance' class="cursor-pointer" ng-click='showGrievancesCat=!showGrievancesCat' ng-attr-active='{{showGrievancesCat}}'>
+                                    <input type="checkbox" ng-checked="showGrievancesCat">
+                                    <span class="glyphicon glyphicon-tasks"></span>
+                                    Grievances</li>
+                                    <li id='showLiupdate' class="cursor-pointer" ng-click='showUpdatesCat=!showUpdatesCat' ng-attr-active='{{showUpdatesCat}}'>
+                                      <input type="checkbox" ng-checked="showUpdatesCat">
+                                      <span class="glyphicon glyphicon-align-left"></span>
+                                      Updates</li>
+                                    </ul>
+                            </div>
+                          </div>
+                        </div>                  
+                        <div class="row bg-white top-buffer" ng-repeat="post in vm.posts">
+                          <div class="col-sm-12">
+                            <div class="panel panel-primary top-buffer pollPost" ng-if="post.type=='poll'">
+                              <div class="panel-heading">Poll: {{post.title}}</div>
+                              <div class="panel-body">
+                                <div ng-repeat="option in post.options">
+                                  <div class="row"  ng-if="!post.isResultVisible">
+                                    <div class="col-sm-12">
+                                      <label>
+                                      <input type="radio" ng-if="!post.isMultiSelect" name="post_option{{post.id}}" ng-model="post.selected" ng-value="option.title" ng-disabled="!post.canSubmit"/>
+                                      <input type="checkbox" ng-if="post.isMultiSelect" name="post_option{{post.id}}" ng-model="option.value" ng-value="option.title" ng-disabled="!post.canSubmit"/>
+                                      <span>{{option.title}} </span>
+                                      <label>
+                                    </div>
+                                  </div>
+                                  <div class="row"  ng-if="post.isResultVisible">
+                                    <div class="col-sm-6 col-xs-6 col-md-6">
+                                      <label>
+                                      <input type="radio" ng-if="!post.isMultiSelect" name="post_option{{post.id}}" ng-model="post.selected" ng-value="option.title" ng-disabled="!post.canSubmit"/>
+                                      <input type="checkbox" ng-if="post.isMultiSelect" name="post_option{{post.id}}" ng-model="option.value" ng-disabled="!post.canSubmit"/>
+                                      {{option.title}} 
+                                      <label>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-6 col-md-6">
+                                      <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="{{option.percentVote}}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{option.percentVote}}%">
+                                        {{option.percentVote | number:2}}%
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="panel-footer ht50" ng-if="post.canSubmit">
+                             <button type="button" class="btn btn-primary btn-sm pull-right" ng-click="pollOpinionSubmit(post.id)">
+                              Submit</button>
+                            </div>
+                          </div>
+                          <div class="panel panel-primary top-buffer grievancePost" ng-if="post.type=='grievance'">
+                            <div class="panel-heading">
+                            <div class="row">
+                              <div class="col-sm-12 col-xs-12">
+                                <div class="row">
+                              <div class="col-sm-12 col-xs-12">
+                                Grievances: {{post.title}}
+                              </div>
+                                  </div>
+                                  <div class="row">
+                              <div class="col-sm-12 col-xs-12">
+                                  <div ng-class="{'wd30pc alert alert-warning' : post.status=='Work In Progress','wd30pc alert alert-danger' : post.status=='Requested','wd30pc alert alert-success' : post.status=='Completed'}">
+                                    <strong>{{post.status}}</strong> 
+                                  </div>
+                                  <img ng-show="post.capturedImg" data-ng-src="{{post.capturedImg}}" class="grivCamImg"/>
+                                  </div>
+                                    <span class="pull-right">- Original Post By {{post.from}} On {{post.on}}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="panel-body">
+                              <input type="text" class="wdth70pc" ng-model="UpVoteGrivTxt[post.id]"/>
+                              <button type="button" class="btn btn-primary btn-sm pull-right" ng-click="UpVoteGrievances(post.id)">UpVote</button>
+                            </div>
+                            <div class="panel-footer">
+                              <div class="interaction row mrg-top15" ng-repeat="interaction in post.interactions">
+                                <div class="col-sm-2 col-xs-2 col-md-2">
+                                  <img src="profile.png" class="img-circle">
+                                </div>
+                                <div class="col-sm-10">
+                                  <span>{{interaction.text}}</span>
+                                  <span class="pull-right mrg-top15">- By {{interaction.from}} On {{interaction.on}}</span>
+                                </div>
+                                <hr/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="panel panel-primary top-buffer updatePost" ng-if="post.type=='message'">
+                            <div class="panel-heading">Message By {{post.from}} On {{post.on}}</div>
+                            <div class="panel-body">
+                             {{post.title}}
+                           </div>                      
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="col-md-2 bg-white hidden-xs hidden-sm">
+                  <div class="col-sm-12">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <h5>
+                          Top Trending Topics around you:
+                        </h5>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <ul class="no-padding">
+                          <li><a> What type of regulating structure is required to encourage development of requisite skill traits in mining sector? </a></li>
+                          <li><a> What type of incentive structure encourages development of requisite skill traits in mining sector? </a></li>
+                          <li><a> How Sustainable Management of Natural Resources may achieve Food & Rural livelihood security in India? </a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div id="map"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id='selectCityModal' class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Select your city:</h4>
+                    </div>
+                    <div class="modal-body" id="changeLocModal">
+                      <!-- <select id='selectCity' ng-model='locationChanged' ng-options="i.name for i in vm.citiesArray" ng-change="vm.locChange(this.locationChanged)">
+                      </select> -->
+                  <input type="text" id="userLocationNameM" ng-model='vm.userDetails.location'>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.changeUserLocation()">Save</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id='showUserDetails' class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">User Details</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="profileContainer">
+                        <div class="row margin-top0">
+                          <div class="col-sm-8 col-sm-offset-3">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                Name:
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" ng-model="vm.userDetails.name">
+                              </div>
+                              </div>
+                              <div class="row">
+                              <div class="col-sm-6">
+                                  User Image:
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="file" fileread="vm.userDetails.img" class="wd80pc"/>
+                                <img data-ng-src="{{vm.userDetails.img}}" id="previewUserImg"/>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-6">
+                                  Address:
+                              </div>
+                              <div class="col-sm-6">
+                                <textarea>{{vm.userDetails.address}}</textarea>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-6">
+                                  Location:
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" id="userLocationName" value="{{vm.userDetails.location}}">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-6">
+                                  Aadhar Card No.
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" value="{{vm.userDetails.aadhar}}">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-6">
+                                  PAN Card No.
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" value="{{vm.userDetails.pan}}">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-6 col-xs-6 col-md-6">
+                                  <a href="homepage.html"><button class="btn btn-primary">Save</button></a>
+                              </div>
+                              <div class="col-sm-6 col-xs-6 col-md-6">
+                                  <button class="btn btn-default">Cancel</button>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+              <div id='showNotification' class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">{{vm.showSelectedNotification.title}}</h4>
+                    </div>
+                    <div class="modal-body">
+                         <!-- <div class="row bg-white top-buffer" ng-repeat="post in vm.posts">
+                         <div class="col-sm-12"> -->
+                           <div class="panel panel-primary top-buffer pollPost" ng-if="vm.showSelectedNotification.type=='poll'">
+                             <div class="panel-heading">Poll: {{vm.showSelectedNotification.title}}</div>
+                             <div class="panel-body">
+                               <div ng-repeat="option in vm.showSelectedNotification.options">
+                                 <div class="row"  ng-if="!vm.showSelectedNotification.isResultVisible">
+                                   <div class="col-sm-12">
+                                     <input type="radio" ng-if="!vm.showSelectedNotification.isMultiSelect" name="post_option{{vm.showSelectedNotification.id}}" ng-model="vm.showSelectedNotification.selected" ng-value="option.title" ng-disabled="!vm.showSelectedNotification.canSubmit"/>
+                                     <input type="checkbox" ng-if="vm.showSelectedNotification.isMultiSelect" name="post_option{{vm.showSelectedNotification.id}}" ng-model="option.value" ng-value="option.title" ng-disabled="!vm.showSelectedNotification.canSubmit"/>
+                                     <span>{{option.title}} </span>
+                                   </div>
+                                 </div>
+                                 <div class="row"  ng-if="vm.showSelectedNotification.isResultVisible">
+                                   <div class="col-sm-6 col-xs-6 col-md-6">
+                                     <input type="radio" ng-if="!vm.showSelectedNotification.isMultiSelect" name="post_option{{vm.showSelectedNotification.id}}" ng-model="vm.showSelectedNotification.selected" ng-value="option.title" ng-disabled="!vm.showSelectedNotification.canSubmit"/>
+                                     <input type="checkbox" ng-if="vm.showSelectedNotification.isMultiSelect" name="post_option{{vm.showSelectedNotification.id}}" ng-model="option.value" ng-disabled="!vm.showSelectedNotification.canSubmit"/>
+                                     {{option.title}} 
+                                   </div>
+                                   <div class="col-sm-6 col-xs-6 col-md-6">
+                                     <div class="progress">
+                                       <div class="progress-bar" role="progressbar" aria-valuenow="{{option.percentVote}}"
+                                       aria-valuemin="0" aria-valuemax="100" style="width:{{option.percentVote}}%">
+                                       {{option.percentVote | number:2}}%
+                                     </div>
+                                   </div>
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                               <!-- </div>
+                             </div> -->
+                             <div class="panel-footer ht50" ng-if="vm.showSelectedNotification.canSubmit">
+                              <button type="button" class="btn btn-primary btn-sm pull-right" ng-click="pollOpinionSubmit(vm.showSelectedNotification.id)">
+                               Submit</button>
+                             </div>
+                           </div>
+                         </div>
+                         <div class="panel panel-primary top-buffer grievancePost" ng-if="vm.showSelectedNotification.type=='grievance'">
+                           <div class="panel-heading">Grievances: {{vm.showSelectedNotification.title}}</div>
+                           <div class="panel-body">
+                             <input type="text" class="wdth85pc" ng-model="UpVoteGrivTxt[vm.showSelectedNotification.id]"/>
+                             <button type="button" class="btn btn-primary btn-sm pull-right" ng-click="UpVoteGrievances(vm.showSelectedNotification.id)">UpVote</button>
+                           </div>
+                           <div class="panel-footer">
+                             <div class="interaction row mrg-top15" ng-repeat="interaction in vm.showSelectedNotification.interactions">
+                               <div class="col-sm-2">
+                                 <img src="profile.png" class="img-circle">
+                               </div>
+                               <div class="col-sm-10">
+                                 <span>{{interaction.text}}</span>
+                                 <span class="pull-right mrg-top15">- By {{interaction.from}} On {{interaction.on}}</span>
+                               </div>
+                               <hr/>
+                             </div>
+                           </div>
+                         </div>
+                         <div class="panel panel-primary top-buffer updatePost" ng-if="vm.showSelectedNotification.type=='message'">
+                           <div class="panel-heading">Message</div>
+                           <div class="panel-body">
+                            {{vm.showSelectedNotification.title}}
+                          </div>                      
+                        </div>
+                        <div class="modal-footer">
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <script src="cordova.js"></script>
+                  <script type="text/javascript" src="jquery-1.12.1.min.js"></script>
+                  <script type="text/javascript" src="AutoSuggest.js"></script>
+                  <script type="text/javascript" src="bootstrap.min.js"></script>
+                  <script type="text/javascript" src="angular.min.js"></script>
+                  <script type="text/javascript" src="main.js"></script>
+                  <script type="text/javascript" src="dataStore.js"></script>
+                  <script type="text/javascript" src="script.js"></script>
+                  <script type="text/javascript" src="jquery-ui.js"></script>
+
+                </body>
+                </html>
